@@ -3,5 +3,7 @@
 
 void main()
 {
-	InitWindow(1280, 720, "Pool by Francisco Sanchez");
+	App* app = new App();
+	app->start();
+	delete app;
 }
