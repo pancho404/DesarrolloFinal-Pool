@@ -36,3 +36,9 @@
 *.db-wal
 *.opendb
 *.ipch
+*.log
+*.pdb
+*.tlog
+*.idb
+*.lastbuildstate
+*.recipe
