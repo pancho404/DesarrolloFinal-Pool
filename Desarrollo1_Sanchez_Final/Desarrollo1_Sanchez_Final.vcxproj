@@ -154,6 +154,7 @@
     <ClCompile Include="src\Border.cpp" />
     <ClCompile Include="src\Credits.cpp" />
     <ClCompile Include="src\CueStick.cpp" />
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Hole.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Menu.cpp" />
@@ -166,10 +167,12 @@
     <ClInclude Include="src\Border.h" />
     <ClInclude Include="src\Credits.h" />
     <ClInclude Include="src\CueStick.h" />
+    <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Hole.h" />
     <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\Rules.h" />
     <ClInclude Include="src\SceneManager.h" />
+    <ClInclude Include="src\Screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

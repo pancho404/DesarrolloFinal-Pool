@@ -7,6 +7,7 @@ App::App()
 	menu = new Menu(sceneManager);
 	rules = new Rules(sceneManager);
 	credits = new Credits(sceneManager);
+	game = new Game();
 }
 
 App::~App()
@@ -15,6 +16,7 @@ App::~App()
 	delete menu;
 	delete rules;
 	delete credits;
+	delete game;
 }
 
 void App::start()
