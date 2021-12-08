@@ -23,7 +23,6 @@ App::~App()
 
 void App::start()
 {
-	std::cout << "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" << std::endl;
 	while (!WindowShouldClose() && sceneManager->getScene()!=Scene::EXIT)
 	{
 		switch (sceneManager->getScene())
