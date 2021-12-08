@@ -1,5 +1,5 @@
 #pragma once
-#include "Button.h"
+#include "raylib.h"
 #include "SceneManager.h"
 class Menu
 {
@@ -7,11 +7,7 @@ private:
 	Rectangle playRec;
 	Rectangle rulesRec;
 	Rectangle creditsRec;
-	Rectangle quitRec;
-	Button* playButton;
-	Button* rulesButton;
-	Button* creditsButton;
-	Button* quitButton;
+	Rectangle quitRec;	
 	SceneManager* sceneManager;
 	Texture2D texture;
 public:

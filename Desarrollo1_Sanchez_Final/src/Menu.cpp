@@ -17,21 +17,13 @@ Menu::Menu(SceneManager* sceneManager)
 	quitRec.width = 149;
 	quitRec.height = 71;
 	quitRec.x = 560;
-	quitRec.y = 569;
-	playButton = new Button(playRec);
-	rulesButton = new Button(rulesRec);
-	creditsButton = new Button(creditsRec);
-	quitButton = new Button(quitRec);
+	quitRec.y = 569;	
 	this->sceneManager = sceneManager;
 	texture = LoadTexture("../res/mainMenu.png");
 }
 
 Menu::~Menu()
-{
-	delete playButton;
-	delete rulesButton;
-	delete creditsButton;
-	delete quitButton;
+{	
 	UnloadTexture(texture);
 }
 
