@@ -19,7 +19,7 @@ Menu::Menu(SceneManager* sceneManager)
 	quitRec.x = 560;
 	quitRec.y = 569;	
 	this->sceneManager = sceneManager;
-	texture = LoadTexture("../res/mainMenu.png");
+	texture = LoadTexture("res/mainMenu.png");
 }
 
 Menu::~Menu()

@@ -7,7 +7,7 @@ Rules::Rules(SceneManager* sceneManager)
 	backRec.height = 71;
 	backRec.x = 546;
 	backRec.y = 634;
-	texture = LoadTexture("../res/rules.png");
+	texture = LoadTexture("res/rules.png");
 }
 
 Rules::~Rules()

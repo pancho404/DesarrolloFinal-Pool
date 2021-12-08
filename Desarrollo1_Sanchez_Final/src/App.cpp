@@ -1,5 +1,5 @@
 #include "App.h"
-
+#include <iostream>
 App::App()
 {
 	InitWindow(1280, 720, "Pool by Francisco Sanchez");
@@ -8,6 +8,7 @@ App::App()
 	rules = new Rules(sceneManager);
 	credits = new Credits(sceneManager);
 	game = new Game();
+	
 }
 
 App::~App()
@@ -16,12 +17,14 @@ App::~App()
 	delete menu;
 	delete rules;
 	delete credits;
+	game->DeInit();
 	delete game;
 }
 
 void App::start()
 {
-	while (!WindowShouldClose && sceneManager->getScene()!=Scene::EXIT)
+	std::cout << "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" << std::endl;
+	while (!WindowShouldClose() && sceneManager->getScene()!=Scene::EXIT)
 	{
 		switch (sceneManager->getScene())
 		{
@@ -38,7 +41,9 @@ void App::start()
 			credits->Draw();
 			break;
 		case Scene::GAMEPLAY:
-
+			game->Input();
+			game->Update();
+			game->Draw();
 		case Scene::EXIT:
 			break;
 		default:

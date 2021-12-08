@@ -7,7 +7,7 @@ Credits::Credits(SceneManager* sceneManager)
 	backRec.height = 71;
 	backRec.x = 546;
 	backRec.y = 634;
-	texture = LoadTexture("../res/credits.png");
+	texture = LoadTexture("res/credits.png");
 }
 
 Credits::~Credits()
