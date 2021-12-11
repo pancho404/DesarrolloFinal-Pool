@@ -23,6 +23,7 @@ App::~App()
 
 void App::start()
 {
+	game->Init();
 	while (!WindowShouldClose() && sceneManager->getScene()!=Scene::EXIT)
 	{
 		switch (sceneManager->getScene())
