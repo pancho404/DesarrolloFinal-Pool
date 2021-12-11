@@ -49,23 +49,23 @@ void Game::Init() {
 	borders.push_back(new Border(BorderPosition::DOWNRIGHT, downRight));
 	borders.push_back(new Border(BorderPosition::LEFT, left));
 	borders.push_back(new Border(BorderPosition::RIGHT, right));
-	balls.push_back(new Ball({ screenWidth * 2 / 10,screenHeight / 2 }, WHITE, TypeOfBall::WHITEBALL));
-	balls.push_back(new Ball({ screenWidth * 7 / 10,screenHeight * 5 /10 }, RED, TypeOfBall::STRIPED));
-	balls.push_back(new Ball({ screenWidth * 7.4 / 10,screenHeight * 4.6 /10 }, RED, TypeOfBall::STRIPED));
-	balls.push_back(new Ball({ screenWidth * 7.4 / 10,screenHeight * 5.4 /10 }, BLUE, TypeOfBall::SMOOTH));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 4.2 / 10 }, BLUE, TypeOfBall::SMOOTH));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 5/10 }, BLACK, TypeOfBall::BLACKBALL));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 5.8 /10 }, RED, TypeOfBall::STRIPED));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 3.5 / 10 }, RED, TypeOfBall::STRIPED));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 4.5 / 10 }, BLUE, TypeOfBall::SMOOTH));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 5.5 / 10 }, RED, TypeOfBall::STRIPED));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 6.5 / 10 }, BLUE, TypeOfBall::SMOOTH));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 3 / 10 }, BLUE, TypeOfBall::SMOOTH));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 4 / 10 }, RED, TypeOfBall::STRIPED));									
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 5 / 10 }, BLUE, TypeOfBall::SMOOTH));									
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH));									
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED));
-	
+	balls.push_back(new Ball({ screenWidth * 2 / 10,screenHeight / 2 }, WHITE, TypeOfBall::WHITEBALL, 0));
+	balls.push_back(new Ball({ screenWidth * 7 / 10,screenHeight * 5 / 10 }, RED, TypeOfBall::STRIPED, 1));
+	balls.push_back(new Ball({ screenWidth * 7.4 / 10,screenHeight * 4.6 / 10 }, RED, TypeOfBall::STRIPED, 2));
+	balls.push_back(new Ball({ screenWidth * 7.4 / 10,screenHeight * 5.4 / 10 }, BLUE, TypeOfBall::SMOOTH, 3));
+	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 4.2 / 10 }, BLUE, TypeOfBall::SMOOTH, 4));
+	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 5 / 10 }, BLACK, TypeOfBall::BLACKBALL, 5));
+	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 5.8 / 10 }, RED, TypeOfBall::STRIPED, 6));
+	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 3.5 / 10 }, RED, TypeOfBall::STRIPED, 7));
+	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 4.5 / 10 }, BLUE, TypeOfBall::SMOOTH, 8));
+	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 5.5 / 10 }, RED, TypeOfBall::STRIPED, 9));
+	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 6.5 / 10 }, BLUE, TypeOfBall::SMOOTH, 10));
+	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 3 / 10 }, BLUE, TypeOfBall::SMOOTH, 11));
+	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 4 / 10 }, RED, TypeOfBall::STRIPED, 12));
+	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 5 / 10 }, BLUE, TypeOfBall::SMOOTH, 13));
+	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH, 14));
+	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED, 15));
+
 }
 
 void Game::Input() {
@@ -77,9 +77,6 @@ void Game::Input() {
 
 void Game::Update() {
 	for (int i = 0; i < balls.size(); i++) {
-		if (balls[i]->GetOnGame()) {
-			balls[i]->Movement();
-		}
 		BorderBallCollision(borders, balls[i]);
 		HoleBallCollision(holes, balls[i]);
 	}
@@ -107,42 +104,67 @@ void Game::DeInit() {
 }
 
 void Game::BallBallCollision(vector<Ball*> balls) {
-	float distance = 0.0f; //Seteamos variables de distancia entre bolas, la normal a la hora de la colision y la profundidad con la que una pelota se sobreposiciona en la otra
-	Vector2 normal = { 0,0 };
-	float depth = 0;
-	for (int i = 0; i < balls.size(); i++) {
-		for (int j = i+1; j < balls.size(); j++) { //Comparamos cada bola con las demas sin repetir ni comparar a la misma consigo misma
-			distance = sqrt(pow(balls[j]->GetPosition().x - balls[i]->GetPosition().x, 2) + pow(balls[j]->GetPosition().y - balls[i]->GetPosition().y, 2)); //Obtenemos la distancia entre los centros de ambas a traves de pitágoras
-			if (distance < radius * 2) { //Si la distancia es menor a la suma de los radios de las bolas
+	for (auto& ball : balls) {
+		ball->SetAcceleration({ -ball->GetVelocity().x * 0.8f /*- friction * GetFrameTime() - airFriction * GetFrameTime()*/,-ball->GetVelocity().y * 0.8f/* - friction * GetFrameTime() - airFriction * GetFrameTime()*/ });
+		if (ball->GetAcceleration().x > -0.05 && ball->GetAcceleration().x < 0.05) {
+			ball->SetAcceleration({ 0, ball->GetAcceleration().y });
+		}
+		if (ball->GetAcceleration().y > -0.05 && ball->GetAcceleration().y < 0.05) {
+			ball->SetAcceleration({ ball->GetAcceleration().x,0 });
+		}
 
-				normal.x = (balls[j]->GetPosition().x - balls[i]->GetPosition().x) / sqrt(pow(balls[j]->GetPosition().x - balls[i]->GetPosition().x, 2) + pow(balls[j]->GetPosition().y - balls[i]->GetPosition().y, 2)); //Obtenemos la normal de la colision en x
+		// Update ball physics
+		ball->SetVelocity({ ball->GetVelocity().x + ball->GetAcceleration().x * GetFrameTime(), ball->GetVelocity().y + ball->GetAcceleration().y * GetFrameTime() });
+		ball->SetPosition({ ball->GetPosition().x + ball->GetVelocity().x * GetFrameTime(), ball->GetPosition().y + ball->GetVelocity().y * GetFrameTime() });
 
-				normal.y = (balls[j]->GetPosition().y - balls[i]->GetPosition().y) / sqrt(pow(balls[j]->GetPosition().x - balls[i]->GetPosition().x, 2) + pow(balls[j]->GetPosition().y - balls[i]->GetPosition().y, 2));//Obtenemos la normal de la colision en y
+		// Clamp velocity near zero
+		if (fabs(ball->GetVelocity().x * ball->GetVelocity().x + ball->GetVelocity().y * ball->GetVelocity().y) < 0.01f) {
+			ball->SetVelocity({ 0,0 });
+		}
+	}
 
-				depth = radius - distance; //La cantidad de espacio que una bola invadió de otra	
+	for (auto& ball : balls) {
+		for (auto& target : balls) {
+			if (ball->GetID() != target->GetID()) {
+				if (sqrt(pow(ball->GetPosition().x - target->GetPosition().x, 2) + pow(ball->GetPosition().y - target->GetPosition().y, 2)) <= radius * 2) {
+					CollidingBalls.push_back({ ball, target });
+					float distance = sqrt(pow(ball->GetPosition().x - target->GetPosition().x, 2) + pow(ball->GetPosition().y - target->GetPosition().y, 2));
+					float overlap = 0.5f * (distance - radius * 2);
 
-				Vector2 normalForce1 = { -normal.x * abs(balls[i]->GetForce() - balls[j]->GetForce()) / 2,-normal.y * abs(balls[i]->GetForce() - balls[j]->GetForce()) / 2 }; //Fuerza que recibe la bola 1 al colisionar
+					ball->SetPosition({ ball->GetPosition().x - overlap * (ball->GetPosition().x - target->GetPosition().x) / distance, ball->GetPosition().y - overlap * (ball->GetPosition().y - target->GetPosition().y) / distance });
 
-				Vector2 directionForce1 = { balls[i]->GetDirection().x * balls[i]->GetForce() / 2,balls[i]->GetDirection().y * balls[i]->GetForce() / 2 }; //Obtenemos la direccion en la que iba la bola 1 al colisionar
-
-				Vector2 result1 = { normalForce1.x + directionForce1.x,normalForce1.y + directionForce1.y }; //La suma de ambas fuerzas nos devuelve la nueva direccion y fuerza que adquiere la bola
-
-				Vector2 normalForce2 = { normal.x * abs(balls[j]->GetForce() - balls[i]->GetForce()) / 2,normal.y * abs(balls[j]->GetForce() - balls[i]->GetForce()) / 2 }; //Fuerza que recibe la bola 2 al colisionar
-
-				Vector2 directionForce2 = { balls[j]->GetDirection().x * balls[j]->GetForce() / 2,balls[j]->GetDirection().y * balls[j]->GetForce() / 2 };//Obtenemos la direccion en la que iba la bola 2 al colisionar
-
-				Vector2 result2 = { (normalForce2.x + directionForce2.x) ,(normalForce2.y + directionForce2.y) };	//La suma de ambas fuerzas nos devuelve la nueva direccion y fuerza que adquiere la bola
-
-				balls[i]->Move({ normal.x * depth / 2 , normal.y *depth/2}); //Se reubica la pelota en una posicion donde ya no colisione con la otra bola
-
-				balls[i]->SetForce(result1); //Se le aplica la nueva fuerza surgida de la colision
-
-				balls[j]->Move({ -normal.x * depth / 2 , -normal.y * depth / 2 });//Se reubica la pelota en una posicion donde ya no colisione con la otra bola
-
-				balls[j]->SetForce({ result2.x , result2.y });//Se le aplica la nueva fuerza surgida de la colision
+					target->SetPosition({ target->GetPosition().x + overlap * (ball->GetPosition().x - target->GetPosition().x) / distance, target->GetPosition().y + overlap * (ball->GetPosition().y - target->GetPosition().y) / distance });
+				}
 			}
 		}
 	}
+
+	for (auto& collision : CollidingBalls) {
+		Ball* b1 = collision.first;
+		Ball* b2 = collision.second;
+
+		float distance = sqrt(pow(b1->GetPosition().x - b2->GetPosition().x, 2) + pow(b1->GetPosition().y - b2->GetPosition().y, 2));
+
+		float normalX = (b2->GetPosition().x - b1->GetPosition().x) / distance;
+		float normalY = (b2->GetPosition().y - b1->GetPosition().y) / distance;
+
+		float tangX = -normalY;
+		float tangY = normalX;
+
+		float dotTan1 = b1->GetVelocity().x * tangX + b1->GetVelocity().y * tangY;
+		float dotTan2 = b2->GetVelocity().x * tangX + b2->GetVelocity().y * tangY;
+
+		float dotNormal1 = b1->GetVelocity().x * normalX + b1->GetVelocity().y * normalY;
+		float dotNormal2 = b2->GetVelocity().x * normalX + b2->GetVelocity().y * normalY;
+
+		float m1 = (2.0f * mass * dotNormal2) / (mass * 2);
+		float m2 = (2.0f * mass * dotNormal1) / (mass * 2);
+
+		b1->SetVelocity({ -(tangX * dotTan2 + normalX * mass / 2), -(tangY * dotTan2 + normalY * mass / 2) });
+		b2->SetVelocity({ tangX * dotTan1 + normalX * mass / 2 , tangY * dotTan1 + normalY * mass / 2 });
+
+	}
+	CollidingBalls.clear();
 }
 
 void Game::BorderBallCollision(vector<Border*> borders, Ball* ball) {
@@ -193,7 +215,7 @@ void Game::HoleBallCollision(vector<Hole*> holes, Ball* ball) {
 				ball->SetPosition({ screenWidth * 2 / 10, screenHeight / 2 });
 				ball->SetDirection({ 0, 0 });
 				ball->SetVelocity({ 0, 0 });
-				ball->SetAcceleration(0);
+				ball->SetAcceleration({ 0 });
 			}
 			if (ball->GetType() == TypeOfBall::BLACKBALL) {
 				//Gameover

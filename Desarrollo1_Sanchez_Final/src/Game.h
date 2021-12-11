@@ -7,12 +7,14 @@
 #include <vector>
 using namespace std;
 
-class Game {
+class Game 
+{
 private:
 	vector<Ball*> balls;
 	vector<Border*> borders;
 	vector<Hole*> holes;
 	CueStick* stick;
+	vector<pair<Ball*, Ball*>> CollidingBalls;
 public:
 	Game();
 	~Game();

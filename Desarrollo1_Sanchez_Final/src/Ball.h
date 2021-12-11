@@ -21,7 +21,7 @@ static float airFriction = constantAirFriction * 0.5f * airDensity * (radius * r
 
 class Ball {
 private:
-	float acceleration;
+	Vector2 acceleration;
 	Vector2 position;
 	Vector2 direction;
 	Vector2 velocity;
@@ -29,8 +29,9 @@ private:
 	bool onGame;
 	bool isMoving;
 	TypeOfBall type;
+	int id;
 public:
-	Ball(Vector2 position, Color color, TypeOfBall type);
+	Ball(Vector2 position, Color color, TypeOfBall type, int id);
 	~Ball();
 	Vector2 GetPosition();
 	void SetPosition(Vector2 position);
@@ -44,12 +45,11 @@ public:
 	bool GetIsMoving();
 	void SetIsMoving(bool isMoving);
 	void Draw();
-	void Movement();
-	void Hit(Vector2 mousePosition);
 	TypeOfBall GetType();
-	void SetAcceleration(float acceleration);
-	float GetForce();
-	void SetForce(Vector2 force);
+	Vector2 GetAcceleration();
+	void Hit(Vector2 mousePosition);
+	void SetAcceleration(Vector2 acceleration);
 	void Move(Vector2 movement);
+	int GetID();
 };
 
