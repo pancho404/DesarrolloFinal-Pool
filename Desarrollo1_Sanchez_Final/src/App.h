@@ -12,6 +12,7 @@ private:
 	Rules* rules;
 	Credits* credits;
 	Game* game;
+	Music music;
 public:
 	App();
 	~App();

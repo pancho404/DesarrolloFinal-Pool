@@ -3,11 +3,13 @@
 App::App()
 {
 	InitWindow(1280, 720, "Pool by Francisco Sanchez");
+	InitAudioDevice();
 	sceneManager = new SceneManager();
 	menu = new Menu(sceneManager);
 	rules = new Rules(sceneManager);
 	credits = new Credits(sceneManager);
 	game = new Game();
+	music = LoadMusicStream("res/music.mp3");
 	
 }
 
@@ -19,13 +21,17 @@ App::~App()
 	delete credits;
 	game->DeInit();
 	delete game;
+	UnloadMusicStream(music);
+	CloseAudioDevice();
 }
 
 void App::start()
 {
 	game->Init();
+	PlayMusicStream(music);
 	while (!WindowShouldClose() && sceneManager->getScene()!=Scene::EXIT)
 	{
+		UpdateMusicStream(music);
 		switch (sceneManager->getScene())
 		{
 		case Scene::MENU:
