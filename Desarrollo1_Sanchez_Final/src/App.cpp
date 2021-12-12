@@ -29,6 +29,7 @@ void App::start()
 {
 	game->Init();
 	PlayMusicStream(music);
+	music.looping = true;
 	while (!WindowShouldClose() && sceneManager->getScene()!=Scene::EXIT)
 	{
 		UpdateMusicStream(music);
