@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\Border.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="src\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Player.h" />
     <ClInclude Include="src\App.h" />
     <ClInclude Include="src\Ball.h" />
     <ClInclude Include="src\Border.h" />
