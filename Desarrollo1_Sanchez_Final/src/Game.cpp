@@ -7,6 +7,8 @@ Game::~Game() {
 }
 
 void Game::Init() {
+	playerOneTurn = true;
+	ballSound = LoadSound("res/ballSound.mp3");
 	holes.push_back(new Hole({ 36,36 }, 36));
 	holes.push_back(new Hole({ 36,screenHeight - 36 }, 36));
 	holes.push_back(new Hole({ screenWidth - 36,36 }, 36));
@@ -70,7 +72,9 @@ void Game::Init() {
 
 void Game::Input() {
 	Vector2 mousePosition = GetMousePosition();
-	if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))     {
+
+	if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) && balls[0]->GetVelocity().x==0 && balls[0]->GetVelocity().y == 0) 
+	{
 		balls[0]->Hit(mousePosition);
 	}
 }
@@ -101,10 +105,12 @@ void Game::Draw() {
 }
 
 void Game::DeInit() {
+	UnloadSound(ballSound);
 }
 
 void Game::BallBallCollision(vector<Ball*> balls) {
 	for (auto& ball : balls) {
+		
 		ball->SetAcceleration({ -ball->GetVelocity().x * 0.8f /*- friction * GetFrameTime() - airFriction * GetFrameTime()*/,-ball->GetVelocity().y * 0.8f/* - friction * GetFrameTime() - airFriction * GetFrameTime()*/ });
 		if (ball->GetAcceleration().x > -0.05 && ball->GetAcceleration().x < 0.05) {
 			ball->SetAcceleration({ 0, ball->GetAcceleration().y });
@@ -118,7 +124,7 @@ void Game::BallBallCollision(vector<Ball*> balls) {
 		ball->SetPosition({ ball->GetPosition().x + ball->GetVelocity().x * GetFrameTime(), ball->GetPosition().y + ball->GetVelocity().y * GetFrameTime() });
 
 		// Clamp velocity near zero
-		if (fabs(ball->GetVelocity().x * ball->GetVelocity().x + ball->GetVelocity().y * ball->GetVelocity().y) < 0.01f) {
+		if (fabs(ball->GetVelocity().x * ball->GetVelocity().x + ball->GetVelocity().y * ball->GetVelocity().y) < 1) {
 			ball->SetVelocity({ 0,0 });
 		}
 	}
@@ -127,6 +133,7 @@ void Game::BallBallCollision(vector<Ball*> balls) {
 		for (auto& target : balls) {
 			if (ball->GetID() != target->GetID()) {
 				if (sqrt(pow(ball->GetPosition().x - target->GetPosition().x, 2) + pow(ball->GetPosition().y - target->GetPosition().y, 2)) <= radius * 2) {
+					PlaySound(ballSound);
 					CollidingBalls.push_back({ ball, target });
 					float distance = sqrt(pow(ball->GetPosition().x - target->GetPosition().x, 2) + pow(ball->GetPosition().y - target->GetPosition().y, 2));
 					float overlap = 0.5f * (distance - radius * 2);
@@ -171,38 +178,46 @@ void Game::BorderBallCollision(vector<Border*> borders, Ball* ball) {
 	for (int i = 0; i < borders.size(); i++) {
 		if(borders[i]->GetBorderPosition() == BorderPosition::UPLEFT){
 			if (ball->GetPosition().x + radius >= borders[i]->GetBorderRec().x && ball->GetPosition().x - radius <= borders[i]->GetBorderRec().x + borders[i]->GetBorderRec().width && ball->GetPosition().y - radius <= borders[i]->GetBorderRec().y + borders[i]->GetBorderRec().height) {
-				ball->SetDirection({ ball->GetDirection().x, -ball->GetDirection().y });
-				ball->SetPosition({ball->GetPosition().x, borders[i]->GetBorderRec().y + borders[i]->GetBorderRec().height + radius });
+				//ball->SetDirection({ ball->GetDirection().x, -ball->GetDirection().y });
+				//ball->SetPosition({ ball->GetPosition().x, borders[i]->GetBorderRec().y + borders[i]->GetBorderRec().height + radius });
+				////ball->SetVelocity({ ball->GetAcceleration().x * ball->GetDirection().x, ball->GetAcceleration().y * ball->GetDirection().y });
+				ball->SetVelocity({ ball->GetVelocity().x, -ball->GetVelocity().y });
 			}
 		}
 		else if (borders[i]->GetBorderPosition() == BorderPosition::UPRIGHT) {
 			if (ball->GetPosition().x + radius >= borders[i]->GetBorderRec().x && ball->GetPosition().x - radius <= borders[i]->GetBorderRec().x + borders[i]->GetBorderRec().width && ball->GetPosition().y - radius <= borders[i]->GetBorderRec().y + borders[i]->GetBorderRec().height) {
-				ball->SetDirection({ ball->GetDirection().x, -ball->GetDirection().y });
-				ball->SetPosition({ ball->GetPosition().x, borders[i]->GetBorderRec().y + borders[i]->GetBorderRec().height + radius });
+				/*ball->SetDirection({ ball->GetDirection().x, -ball->GetDirection().y });
+				ball->SetPosition({ ball->GetPosition().x, borders[i]->GetBorderRec().y + borders[i]->GetBorderRec().height + radius });*/
+				ball->SetVelocity({ ball->GetVelocity().x, -ball->GetVelocity().y });
 			}
 		}
 		else if (borders[i]->GetBorderPosition() == BorderPosition::DOWNLEFT) {
 			if (ball->GetPosition().x + radius >= borders[i]->GetBorderRec().x && ball->GetPosition().x - radius <= borders[i]->GetBorderRec().x + borders[i]->GetBorderRec().width && ball->GetPosition().y + radius >= borders[i]->GetBorderRec().y) {
-				ball->SetDirection({ ball->GetDirection().x * 0.8f, -ball->GetDirection().y * 0.8f });
-				ball->SetPosition({ ball->GetPosition().x, borders[i]->GetBorderRec().y - radius });
+			/*	ball->SetDirection({ ball->GetDirection().x * 0.8f, -ball->GetDirection().y * 0.8f });
+				ball->SetPosition({ ball->GetPosition().x, borders[i]->GetBorderRec().y - radius });*/
+				ball->SetVelocity({ ball->GetVelocity().x, -ball->GetVelocity().y });
 			}
 		}
 		else if (borders[i]->GetBorderPosition() == BorderPosition::DOWNRIGHT) {
 			if (ball->GetPosition().x + radius >= borders[i]->GetBorderRec().x && ball->GetPosition().x - radius <= borders[i]->GetBorderRec().x + borders[i]->GetBorderRec().width && ball->GetPosition().y + radius >= borders[i]->GetBorderRec().y) {
-				ball->SetDirection({ ball->GetDirection().x, -ball->GetDirection().y });
-				ball->SetPosition({ ball->GetPosition().x, borders[i]->GetBorderRec().y - radius });
+				/*ball->SetDirection({ ball->GetDirection().x, -ball->GetDirection().y });
+				ball->SetPosition({ ball->GetPosition().x, borders[i]->GetBorderRec().y - radius });*/
+				ball->SetVelocity({ ball->GetVelocity().x, -ball->GetVelocity().y });
 			}
 		}
 		else if (borders[i]->GetBorderPosition() == BorderPosition::RIGHT) {
 			if (ball->GetPosition().x + radius >= borders[i]->GetBorderRec().x && ball->GetPosition().y - radius >= borders[i]->GetBorderRec().y && ball->GetPosition().y - radius <= borders[i]->GetBorderRec().y + borders[i]->GetBorderRec().height) {
-				ball->SetDirection({ -ball->GetDirection().x, ball->GetDirection().y });
-				ball->SetPosition({ ball->GetPosition().x - radius , ball->GetPosition().y});
+			/*	ball->SetDirection({ -ball->GetDirection().x, ball->GetDirection().y });
+				ball->SetPosition({ ball->GetPosition().x - radius , ball->GetPosition().y});*/
+				ball->SetVelocity({ -ball->GetVelocity().x, ball->GetVelocity().y });
+
 			}
 		}
 		else if (borders[i]->GetBorderPosition() == BorderPosition::LEFT) {
 			if (ball->GetPosition().x - radius <= borders[i]->GetBorderRec().x + borders[i]->GetBorderRec().width && ball->GetPosition().y - radius >= borders[i]->GetBorderRec().y && ball->GetPosition().y - radius <= borders[i]->GetBorderRec().y + borders[i]->GetBorderRec().height) {
-				ball->SetDirection({ -ball->GetDirection().x, ball->GetDirection().y });
-				ball->SetPosition({ borders[i]->GetBorderRec().x + borders[i]->GetBorderRec().width + radius , ball->GetPosition().y });
+			/*	ball->SetDirection({ -ball->GetDirection().x, ball->GetDirection().y });
+				ball->SetPosition({ borders[i]->GetBorderRec().x + borders[i]->GetBorderRec().width + radius , ball->GetPosition().y });*/
+				ball->SetVelocity({ -ball->GetVelocity().x, ball->GetVelocity().y });
 			}
 		}
 	}
@@ -216,16 +231,29 @@ void Game::HoleBallCollision(vector<Hole*> holes, Ball* ball) {
 				ball->SetDirection({ 0, 0 });
 				ball->SetVelocity({ 0, 0 });
 				ball->SetAcceleration({ 0 });
+				playerOneTurn = !playerOneTurn;
 			}
-			if (ball->GetType() == TypeOfBall::BLACKBALL) {
+			if (ball->GetType() == TypeOfBall::BLACKBALL) {			
+				for (int j = 0; j < balls.size(); j++)
+				{
+					
+				}
 				//Gameover
 			}
 			if (ball->GetType() == TypeOfBall::STRIPED) {
+				if (!playerOneTurn)
+				{
+					playerOneTurn = true;
+				}
 				//Jugador de rayadas gana un turno
 				//Jugador de lisas pierde un turno
 				ball->SetOnGame(false);
 			}
 			if (ball->GetType() == TypeOfBall::SMOOTH) {
+				if (playerOneTurn)
+				{
+					playerOneTurn = false;
+				}
 				//Jugador de lisas gana un turno
 				//Jugador de rayadas pierde un turno
 				ball->SetOnGame(false);

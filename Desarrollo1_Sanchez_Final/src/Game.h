@@ -15,6 +15,8 @@ private:
 	vector<Hole*> holes;
 	CueStick* stick;
 	vector<pair<Ball*, Ball*>> CollidingBalls;
+	Sound ballSound;
+	bool playerOneTurn;
 public:
 	Game();
 	~Game();
