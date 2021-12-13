@@ -2,7 +2,8 @@
 
 #include "raylib.h"
 
-class Hole {
+class Hole
+{
 private:
 	Vector2 position;
 	int radius;

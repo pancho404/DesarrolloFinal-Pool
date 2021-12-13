@@ -3,7 +3,8 @@
 #include "raylib.h"
 #include <cmath>
 
-enum class TypeOfBall {
+enum class TypeOfBall 
+{
 	WHITEBALL,
 	BLACKBALL,
 	STRIPED,
@@ -19,7 +20,8 @@ static float mass = 156;
 static float friction = tableFriction * (mass * gravity);
 static float airFriction = constantAirFriction * 0.5f * airDensity * (radius * radius) / 4;
 
-class Ball {
+class Ball 
+{
 private:
 	Vector2 acceleration;
 	Vector2 position;

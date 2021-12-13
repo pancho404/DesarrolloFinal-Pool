@@ -1,7 +1,8 @@
 #pragma once
 #include "raylib.h"
 
-enum class BorderPosition {
+enum class BorderPosition
+{
 	UPLEFT,
 	UPRIGHT,
 	DOWNLEFT,
@@ -10,7 +11,8 @@ enum class BorderPosition {
 	LEFT
 };
 
-class Border {
+class Border
+{
 private:
 	BorderPosition position;
 	Rectangle borderRec;

@@ -1,7 +1,8 @@
 #pragma once
 #include "raylib.h"
 
-class CueStick {
+class CueStick
+{
 private:
 	float rotation;
 	Vector2 position;

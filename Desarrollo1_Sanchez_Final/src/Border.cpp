@@ -1,29 +1,37 @@
 #include "Border.h"
 
-Border::Border(BorderPosition position, Rectangle borderRec) {
+Border::Border(BorderPosition position, Rectangle borderRec) 
+{
 	this->position = position;
 	this->borderRec = borderRec;
 }
 
-Border::~Border() {
+Border::~Border()
+{
+
 }
 
-BorderPosition Border::GetBorderPosition() {
+BorderPosition Border::GetBorderPosition()
+{
 	return position;
 }
 
-void Border::SetBorderPosition(BorderPosition position) {
+void Border::SetBorderPosition(BorderPosition position) 
+{
 	this->position = position;
 }
 
-Rectangle Border::GetBorderRec() {
+Rectangle Border::GetBorderRec() 
+{
 	return borderRec;
 }
 
-void Border::SetBorderRec(Rectangle borderRec) {
+void Border::SetBorderRec(Rectangle borderRec)
+{
 	this->borderRec = borderRec;
 }
 
-void Border::Draw() {
+void Border::Draw()
+{
 	DrawRectangle(borderRec.x, borderRec.y, borderRec.width, borderRec.height, BROWN);
 }

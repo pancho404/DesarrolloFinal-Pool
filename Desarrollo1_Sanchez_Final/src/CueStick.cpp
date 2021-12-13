@@ -1,30 +1,42 @@
 #include "CueStick.h"
 
-CueStick::CueStick(Vector2 position, bool available) {
+CueStick::CueStick(Vector2 position, bool available)
+{
     this->position = position;
     this->available = available;
 }
 
-CueStick::~CueStick() {
+CueStick::~CueStick()
+{
+
 }
 
-float CueStick::GetRotation() {
+float CueStick::GetRotation() 
+{
     return 0.0f;
 }
 
-void CueStick::SetRotation(float rotation) {
+void CueStick::SetRotation(float rotation)
+{
+
 }
 
-Vector2 CueStick::GetPosition() {
+Vector2 CueStick::GetPosition() 
+{
     return Vector2();
 }
 
-void CueStick::SetPosition(Vector2 position) {
+void CueStick::SetPosition(Vector2 position)
+{
+
 }
 
-bool CueStick::GetAvailable() {
+bool CueStick::GetAvailable()
+{
     return false;
 }
 
-void CueStick::SetAvailable(bool available) {
+void CueStick::SetAvailable(bool available)
+{
+
 }
