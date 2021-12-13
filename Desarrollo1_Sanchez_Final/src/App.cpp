@@ -8,7 +8,7 @@ App::App()
 	menu = new Menu(sceneManager);
 	rules = new Rules(sceneManager);
 	credits = new Credits(sceneManager);
-	game = new Game();
+	game = new Game(sceneManager);
 	music = LoadMusicStream("res/music.mp3");
 	SetMusicVolume(music, 0.2f);
 	music.looping = true;
