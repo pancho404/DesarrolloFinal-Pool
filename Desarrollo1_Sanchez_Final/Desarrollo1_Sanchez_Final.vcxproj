@@ -113,12 +113,13 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)raylib-3.7.0_win32_msvc16\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>raylib.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,7 +155,6 @@
     <ClCompile Include="src\Ball.cpp" />
     <ClCompile Include="src\Border.cpp" />
     <ClCompile Include="src\Credits.cpp" />
-    <ClCompile Include="src\CueStick.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Hole.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -167,7 +167,6 @@
     <ClInclude Include="src\Ball.h" />
     <ClInclude Include="src\Border.h" />
     <ClInclude Include="src\Credits.h" />
-    <ClInclude Include="src\CueStick.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Hole.h" />
     <ClInclude Include="src\Menu.h" />
