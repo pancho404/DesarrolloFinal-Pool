@@ -79,6 +79,10 @@ void Ball::SetIsMoving(bool isMoving)
 void Ball::Draw() 
 {
     DrawCircle(position.x, position.y, radius, color);
+    if (GetType()==TypeOfBall::STRIPED)
+    {
+        DrawTexture(texture, position.x-16, position.y-16, WHITE);
+    }
 }
 
 
@@ -89,8 +93,6 @@ void Ball::Hit(Vector2 mousePosition)
 
     SetVelocity(forceOfHit);
 }
-
-
 
 TypeOfBall Ball::GetType()
 {
@@ -116,4 +118,9 @@ void Ball::Move(Vector2 movement)
 int Ball::GetID()
 {
     return id;
+}
+
+void Ball::SetTexture(Texture2D texture)
+{
+    this->texture = texture;
 }

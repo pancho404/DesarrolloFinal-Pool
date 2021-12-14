@@ -18,6 +18,7 @@ Game::~Game()
 
 void Game::Init()
 {
+	Texture2D ballTexture = LoadTexture("res/strippedBall.png");
 	playerOneWins = LoadTexture("res/playerOne.png");
 	playerTwoWins = LoadTexture("res/playerTwo.png");
 	playerOneTurn = true;
@@ -90,6 +91,13 @@ void Game::Init()
 	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH, 14));
 	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED, 15));
 	ballsOnGame = 16;
+	for (int i = 0; i < balls.size(); i++)
+	{
+		if (balls[i]->GetType()==TypeOfBall::STRIPED)
+		{
+			balls[i]->SetTexture(ballTexture);
+		}
+	}
 }
 
 void Game::Input()
