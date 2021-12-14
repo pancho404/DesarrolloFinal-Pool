@@ -14,6 +14,9 @@ Game::Game(SceneManager* sceneManager)
 	backToMenu.width = 603;
 	backToMenu.height = 71;
 	ballsOnGame = 16;
+	ballSound = { NULL };
+	playerOneWins = { NULL };
+	playerTwoWins = { NULL };
 }
 
 Game::~Game()
@@ -75,24 +78,24 @@ void Game::Init()
 	borders.push_back(new Border(BorderPosition::DOWNRIGHT, downRight));
 	borders.push_back(new Border(BorderPosition::LEFT, left));
 	borders.push_back(new Border(BorderPosition::RIGHT, right));
-	balls.push_back(new Ball({ screenWidth * 2 / 10,screenHeight / 2 }, WHITE, TypeOfBall::WHITEBALL, 0));
-	balls.push_back(new Ball({ screenWidth * 7 / 10,screenHeight * 5 / 10 }, RED, TypeOfBall::STRIPED, 1));
-	balls.push_back(new Ball({ screenWidth * 7.4 / 10,screenHeight * 4.6 / 10 }, RED, TypeOfBall::STRIPED, 2));
-	balls.push_back(new Ball({ screenWidth * 7.4 / 10,screenHeight * 5.4 / 10 }, BLUE, TypeOfBall::SMOOTH, 3));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 4.2 / 10 }, BLUE, TypeOfBall::SMOOTH, 4));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 5 / 10 }, BLACK, TypeOfBall::BLACKBALL, 5));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 5.8 / 10 }, RED, TypeOfBall::STRIPED, 6));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 3.5 / 10 }, RED, TypeOfBall::STRIPED, 7));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 4.5 / 10 }, BLUE, TypeOfBall::SMOOTH, 8));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 5.5 / 10 }, RED, TypeOfBall::STRIPED, 9));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 6.5 / 10 }, BLUE, TypeOfBall::SMOOTH, 10));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 3 / 10 }, BLUE, TypeOfBall::SMOOTH, 11));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 4 / 10 }, RED, TypeOfBall::STRIPED, 12));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 5 / 10 }, BLUE, TypeOfBall::SMOOTH, 13));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH, 14));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED, 15));
+	balls.push_back(new Ball({ static_cast<float>(screenWidth * 2 / 10),static_cast<float>(screenHeight / 2) }, WHITE, TypeOfBall::WHITEBALL, 0));
+	balls.push_back(new Ball({ static_cast<float>(screenWidth * 7 / 10),static_cast<float>(screenHeight * 5 / 10) }, RED, TypeOfBall::STRIPED, 1));
+	balls.push_back(new Ball({ static_cast<float>(screenWidth * 7.4f / 10),screenHeight * 4.6f / 10 }, RED, TypeOfBall::STRIPED, 2));
+	balls.push_back(new Ball({ screenWidth * 7.4f / 10,screenHeight * 5.4f / 10 }, BLUE, TypeOfBall::SMOOTH, 3));
+	balls.push_back(new Ball({ screenWidth * 7.8f / 10,screenHeight * 4.2f / 10 }, BLUE, TypeOfBall::SMOOTH, 4));
+	balls.push_back(new Ball({ screenWidth * 7.8f / 10,screenHeight * 5 / 10 }, BLACK, TypeOfBall::BLACKBALL, 5));
+	balls.push_back(new Ball({ screenWidth * 7.8f / 10,screenHeight * 5.8f / 10 }, RED, TypeOfBall::STRIPED, 6));
+	balls.push_back(new Ball({ screenWidth * 8.2f / 10,screenHeight * 3.5f / 10 }, RED, TypeOfBall::STRIPED, 7));
+	balls.push_back(new Ball({ screenWidth * 8.2f / 10,screenHeight * 4.5f / 10 }, BLUE, TypeOfBall::SMOOTH, 8));
+	balls.push_back(new Ball({ screenWidth * 8.2f / 10,screenHeight * 5.5f / 10 }, RED, TypeOfBall::STRIPED, 9));
+	balls.push_back(new Ball({ screenWidth * 8.2f / 10,screenHeight * 6.5f / 10 }, BLUE, TypeOfBall::SMOOTH, 10));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 3 / 10 }, BLUE, TypeOfBall::SMOOTH, 11));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 4 / 10 }, RED, TypeOfBall::STRIPED, 12));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 5 / 10 }, BLUE, TypeOfBall::SMOOTH, 13));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH, 14));
+	balls.push_back(new Ball({ screenWidth * 8.6f/ 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED, 15));
 	
-	for (int i = 0; i < balls.size(); i++)
+	for (unsigned int i = 0; i < balls.size(); i++)
 	{
 		if (balls[i]->GetType()==TypeOfBall::STRIPED)
 		{
@@ -120,12 +123,12 @@ void Game::Update()
 		
 		int previousBallsOnGame = CheckBalls(balls);
 		int ballsStill = 0;
-		for (int i = 0; i < balls.size(); i++) {
+		for (unsigned int i = 0; i < balls.size(); i++) {
 			BorderBallCollision(borders, balls[i]);
 			HoleBallCollision(holes, balls[i]);
 		}
 		BallBallCollision(balls);
-		for (int i = 0; i < balls.size(); i++)
+		for (unsigned int i = 0; i < balls.size(); i++)
 		{
 
 			if (balls[i]->GetVelocity().x == 0 && balls[i]->GetVelocity().y == 0)
@@ -174,15 +177,15 @@ void Game::Draw()
 		{
 			DrawText("Player 2", screenWidth / 2 - 130, screenHeight / 2, 60, BLACK);
 		}
-		for (int i = 0; i < holes.size(); i++)
+		for (unsigned int i = 0; i < holes.size(); i++)
 		{
 			holes[i]->Draw();
 		}
-		for (int i = 0; i < borders.size(); i++)
+		for (unsigned int i = 0; i < borders.size(); i++)
 		{
 			borders[i]->Draw();
 		}
-		for (int i = 0; i < balls.size(); i++)
+		for (unsigned int i = 0; i < balls.size(); i++)
 		{
 			if (balls[i]->GetOnGame()) {
 				balls[i]->Draw();
@@ -242,7 +245,7 @@ void Game::BallBallCollision(vector<Ball*> balls)
 		{
 			if (ball->GetID() != target->GetID())
 			{
-				if (sqrt(pow(ball->GetPosition().x - target->GetPosition().x, 2) + pow(ball->GetPosition().y - target->GetPosition().y, 2)) <= radius * 2)
+				if (sqrt(pow(ball->GetPosition().x - target->GetPosition().x, 2) + pow(ball->GetPosition().y - target->GetPosition().y, 2)) <= static_cast<double>(radius) * 2)
 				{
 					PlaySound(ballSound);
 					CollidingBalls.push_back({ ball, target });
@@ -262,7 +265,7 @@ void Game::BallBallCollision(vector<Ball*> balls)
 		Ball* b1 = collision.first;
 		Ball* b2 = collision.second;
 
-		float distance = static_cast<float>sqrt(pow(b1->GetPosition().x - b2->GetPosition().x, 2) + pow(b1->GetPosition().y - b2->GetPosition().y, 2));
+		float distance = static_cast<float>(sqrt(pow(b1->GetPosition().x - b2->GetPosition().x, 2) + pow(b1->GetPosition().y - b2->GetPosition().y, 2)));
 
 		float normalX = (b2->GetPosition().x - b1->GetPosition().x) / distance;
 		float normalY = (b2->GetPosition().y - b1->GetPosition().y) / distance;
@@ -288,7 +291,7 @@ void Game::BallBallCollision(vector<Ball*> balls)
 
 void Game::BorderBallCollision(vector<Border*> borders, Ball* ball)
 {
-	for (int i = 0; i < borders.size(); i++)
+	for (unsigned int i = 0; i < borders.size(); i++)
 	{
 		if (borders[i]->GetBorderPosition() == BorderPosition::UPLEFT)
 		{
@@ -338,7 +341,7 @@ void Game::BorderBallCollision(vector<Border*> borders, Ball* ball)
 
 void Game::HoleBallCollision(vector<Hole*> holes, Ball* ball)
 {
-	for (int i = 0; i < holes.size(); i++)
+	for (unsigned int i = 0; i < holes.size(); i++)
 	{
 		if (sqrt(pow(holes[i]->GetPosition().x - ball->GetPosition().x, 2) + pow(holes[i]->GetPosition().y - ball->GetPosition().y, 2)) < (holes[i]->GetRadius() + radius) / 2)
 		{
@@ -354,7 +357,7 @@ void Game::HoleBallCollision(vector<Hole*> holes, Ball* ball)
 			{
 				int counterStriped = 0;
 				int counterSmooth = 0;
-				for (int j = 0; j < balls.size(); j++)
+				for (unsigned int j = 0; j < balls.size(); j++)
 				{
 					if (!balls[j]->GetOnGame() && balls[j]->GetType() == TypeOfBall::STRIPED)
 					{
@@ -425,26 +428,26 @@ void Game::Reset()
 	balls.clear();
 	balls.push_back(new Ball({ screenWidth * 2 / 10,screenHeight / 2 }, WHITE, TypeOfBall::WHITEBALL, 0));
 	balls.push_back(new Ball({ screenWidth * 7 / 10,screenHeight * 5 / 10 }, RED, TypeOfBall::STRIPED, 1));
-	balls.push_back(new Ball({ screenWidth * 7.4 / 10,screenHeight * 4.6 / 10 }, RED, TypeOfBall::STRIPED, 2));
-	balls.push_back(new Ball({ screenWidth * 7.4 / 10,screenHeight * 5.4 / 10 }, BLUE, TypeOfBall::SMOOTH, 3));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 4.2 / 10 }, BLUE, TypeOfBall::SMOOTH, 4));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 5 / 10 }, BLACK, TypeOfBall::BLACKBALL, 5));
-	balls.push_back(new Ball({ screenWidth * 7.8 / 10,screenHeight * 5.8 / 10 }, RED, TypeOfBall::STRIPED, 6));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 3.5 / 10 }, RED, TypeOfBall::STRIPED, 7));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 4.5 / 10 }, BLUE, TypeOfBall::SMOOTH, 8));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 5.5 / 10 }, RED, TypeOfBall::STRIPED, 9));
-	balls.push_back(new Ball({ screenWidth * 8.2 / 10,screenHeight * 6.5 / 10 }, BLUE, TypeOfBall::SMOOTH, 10));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 3 / 10 }, BLUE, TypeOfBall::SMOOTH, 11));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 4 / 10 }, RED, TypeOfBall::STRIPED, 12));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 5 / 10 }, BLUE, TypeOfBall::SMOOTH, 13));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH, 14));
-	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED, 15));
+	balls.push_back(new Ball({ screenWidth * 7.4f / 10,screenHeight * 4.6f / 10 }, RED, TypeOfBall::STRIPED, 2));
+	balls.push_back(new Ball({ screenWidth * 7.4f / 10,screenHeight * 5.4f / 10 }, BLUE, TypeOfBall::SMOOTH, 3));
+	balls.push_back(new Ball({ screenWidth * 7.8f / 10,screenHeight * 4.2f / 10 }, BLUE, TypeOfBall::SMOOTH, 4));
+	balls.push_back(new Ball({ screenWidth * 7.8f / 10,screenHeight * 5 / 10 }, BLACK, TypeOfBall::BLACKBALL, 5));
+	balls.push_back(new Ball({ screenWidth * 7.8f / 10,screenHeight * 5.8f / 10 }, RED, TypeOfBall::STRIPED, 6));
+	balls.push_back(new Ball({ screenWidth * 8.2f / 10,screenHeight * 3.5f / 10 }, RED, TypeOfBall::STRIPED, 7));
+	balls.push_back(new Ball({ screenWidth * 8.2f / 10,screenHeight * 4.5f / 10 }, BLUE, TypeOfBall::SMOOTH, 8));
+	balls.push_back(new Ball({ screenWidth * 8.2f / 10,screenHeight * 5.5f / 10 }, RED, TypeOfBall::STRIPED, 9));
+	balls.push_back(new Ball({ screenWidth * 8.2f / 10,screenHeight * 6.5f / 10 }, BLUE, TypeOfBall::SMOOTH, 10));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 3 / 10 }, BLUE, TypeOfBall::SMOOTH, 11));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 4 / 10 }, RED, TypeOfBall::STRIPED, 12));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 5 / 10 }, BLUE, TypeOfBall::SMOOTH, 13));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH, 14));
+	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED, 15));
 }
 
 int Game::CheckBalls(vector<Ball*> balls)
 {
 	int counter = 0;
-	for (int i = 0; i < balls.size(); i++)
+	for (unsigned int i = 0; i < balls.size(); i++)
 	{
 		if (balls[i]->GetOnGame())
 		{
