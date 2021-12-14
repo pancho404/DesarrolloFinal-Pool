@@ -25,6 +25,9 @@ private:
 	bool gameOver;
 	bool playerOneWon;
 	bool playerTwoWon;
+	bool allBallsStill;
+	bool whiteBallHit;
+	int ballsOnGame;
 public:
 	Game(SceneManager* sceneManager);
 	~Game();
@@ -37,5 +40,6 @@ public:
 	void BorderBallCollision(vector<Border*> borders, Ball* ball);
 	void HoleBallCollision(vector<Hole*> holes, Ball* ball);
 	void Reset();
+	int CheckBalls(vector<Ball*> balls);
 };
 
