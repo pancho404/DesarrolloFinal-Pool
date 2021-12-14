@@ -43,3 +43,5 @@
 *.lastbuildstate
 *.recipe
 *.suo
+*.iobj
+*.ipdb
