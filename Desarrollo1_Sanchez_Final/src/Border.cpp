@@ -33,5 +33,5 @@ void Border::SetBorderRec(Rectangle borderRec)
 
 void Border::Draw()
 {
-	DrawRectangle(borderRec.x, borderRec.y, borderRec.width, borderRec.height, BROWN);
+	DrawRectangle(static_cast<int>(borderRec.x), static_cast<int>(borderRec.y), static_cast<int>(borderRec.width), static_cast<int>(borderRec.height), BROWN);
 }

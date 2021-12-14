@@ -78,10 +78,10 @@ void Ball::SetIsMoving(bool isMoving)
 
 void Ball::Draw() 
 {
-    DrawCircle(position.x, position.y, radius, color);
+    DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<float>(radius), color);
     if (GetType()==TypeOfBall::STRIPED)
     {
-        DrawTexture(texture, position.x-16, position.y-16, WHITE);
+        DrawTexture(texture, static_cast<int>(position.x-16), static_cast<int>(position.y-16), WHITE);
     }
 }
 

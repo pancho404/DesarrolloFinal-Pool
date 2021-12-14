@@ -30,5 +30,5 @@ int Hole::GetRadius()
 
 void Hole::Draw()
 {
-    DrawCircle(position.x, position.y, radius, BLACK);
+    DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<float>(radius), BLACK);
 }

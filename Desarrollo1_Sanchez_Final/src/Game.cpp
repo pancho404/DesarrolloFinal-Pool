@@ -9,6 +9,11 @@ Game::Game(SceneManager* sceneManager)
 	allBallsStill = true;
 	whiteBallHit = false;
 	gameOver = false;
+	backToMenu.x = 351;
+	backToMenu.y = 631;
+	backToMenu.width = 603;
+	backToMenu.height = 71;
+	ballsOnGame = 16;
 }
 
 Game::~Game()
@@ -33,11 +38,7 @@ void Game::Init()
 	holes.push_back(new Hole({ screenWidth - 36,36 }, 36));
 	holes.push_back(new Hole({ screenWidth - 36,screenHeight - 36 }, 36));
 	holes.push_back(new Hole({ screenWidth / 2,screenHeight - 36 }, 36));
-	holes.push_back(new Hole({ screenWidth / 2, 36 }, 36));
-	backToMenu.x = 351;
-	backToMenu.y = 631;
-	backToMenu.width = 603;
-	backToMenu.height = 71;
+	holes.push_back(new Hole({ screenWidth / 2, 36 }, 36));	
 	Rectangle upLeft;
 	upLeft.x = 72;
 	upLeft.y = 0;
@@ -90,7 +91,7 @@ void Game::Init()
 	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 5 / 10 }, BLUE, TypeOfBall::SMOOTH, 13));
 	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH, 14));
 	balls.push_back(new Ball({ screenWidth * 8.6 / 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED, 15));
-	ballsOnGame = 16;
+	
 	for (int i = 0; i < balls.size(); i++)
 	{
 		if (balls[i]->GetType()==TypeOfBall::STRIPED)
@@ -245,7 +246,7 @@ void Game::BallBallCollision(vector<Ball*> balls)
 				{
 					PlaySound(ballSound);
 					CollidingBalls.push_back({ ball, target });
-					float distance = sqrt(pow(ball->GetPosition().x - target->GetPosition().x, 2) + pow(ball->GetPosition().y - target->GetPosition().y, 2));
+					float distance = static_cast<float>(sqrt(pow(ball->GetPosition().x - target->GetPosition().x, 2) + pow(ball->GetPosition().y - target->GetPosition().y, 2)));
 					float overlap = 0.5f * (distance - radius * 2);
 
 					ball->SetPosition({ ball->GetPosition().x - overlap * (ball->GetPosition().x - target->GetPosition().x) / distance, ball->GetPosition().y - overlap * (ball->GetPosition().y - target->GetPosition().y) / distance });
@@ -261,7 +262,7 @@ void Game::BallBallCollision(vector<Ball*> balls)
 		Ball* b1 = collision.first;
 		Ball* b2 = collision.second;
 
-		float distance = sqrt(pow(b1->GetPosition().x - b2->GetPosition().x, 2) + pow(b1->GetPosition().y - b2->GetPosition().y, 2));
+		float distance = static_cast<float>sqrt(pow(b1->GetPosition().x - b2->GetPosition().x, 2) + pow(b1->GetPosition().y - b2->GetPosition().y, 2));
 
 		float normalX = (b2->GetPosition().x - b1->GetPosition().x) / distance;
 		float normalY = (b2->GetPosition().y - b1->GetPosition().y) / distance;
