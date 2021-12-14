@@ -3,6 +3,12 @@
 Game::Game(SceneManager* sceneManager)
 {
 	this->sceneManager = sceneManager;
+	playerOneTurn = true;
+	playerOneWon = false;
+	playerTwoWon = false;
+	allBallsStill = true;
+	whiteBallHit = false;
+	gameOver = false;
 }
 
 Game::~Game()
@@ -201,7 +207,7 @@ void Game::BallBallCollision(vector<Ball*> balls)
 {
 	for (auto& ball : balls)
 	{
-		ball->SetAcceleration({ -ball->GetVelocity().x * 0.8f /*- friction * GetFrameTime() - airFriction * GetFrameTime()*/,-ball->GetVelocity().y * 0.8f/* - friction * GetFrameTime() - airFriction * GetFrameTime()*/ });
+		ball->SetAcceleration({ -ball->GetVelocity().x * 0.8f ,-ball->GetVelocity().y * 0.8f});
 		if (ball->GetAcceleration().x > -0.05 && ball->GetAcceleration().x < 0.05)
 		{
 			ball->SetAcceleration({ 0, ball->GetAcceleration().y });

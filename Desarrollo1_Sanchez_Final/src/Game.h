@@ -2,7 +2,6 @@
 #include "Ball.h"
 #include "Border.h"
 #include "Hole.h"
-#include "CueStick.h"
 #include "Screen.h"
 #include "SceneManager.h"
 #include <vector>
@@ -15,7 +14,6 @@ private:
 	vector<Ball*> balls;
 	vector<Border*> borders;
 	vector<Hole*> holes;
-	CueStick* stick;
 	vector<pair<Ball*, Ball*>> CollidingBalls;
 	Texture2D playerOneWins;
 	Texture2D playerTwoWins;
