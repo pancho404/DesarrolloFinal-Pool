@@ -11,6 +11,7 @@ Ball::Ball(Vector2 position, Color color, TypeOfBall type, int id)
     direction = { 0 };
     onGame = true;
     isMoving = false;
+    texture = { NULL };
 }
 
 Ball::~Ball() 
