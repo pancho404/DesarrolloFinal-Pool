@@ -29,7 +29,7 @@ Menu::~Menu()
 
 void Menu::Update()
 {
-	if (CheckCollisionPointRec(GetMousePosition(), playRec)&& IsMouseButtonPressed(MouseButton::MOUSE_LEFT_BUTTON))
+	if (CheckCollisionPointRec(GetMousePosition(), playRec)&& IsMouseButtonReleased(MouseButton::MOUSE_LEFT_BUTTON))
 	{
 		sceneManager->setScene(Scene::GAMEPLAY);
 	}
