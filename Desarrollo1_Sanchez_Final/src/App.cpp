@@ -24,6 +24,7 @@ App::~App()
 	game->DeInit();
 	delete game;
 	UnloadMusicStream(music);
+	CloseWindow();
 	CloseAudioDevice();
 }
 

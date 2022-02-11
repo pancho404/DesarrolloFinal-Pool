@@ -10,6 +10,7 @@ using namespace std;
 class Game 
 {
 private:
+	Texture2D ballTexture;
 	SceneManager* sceneManager;
 	vector<Ball*> balls;
 	vector<Border*> borders;
