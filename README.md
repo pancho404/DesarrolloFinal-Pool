@@ -1,6 +1,6 @@
 # Simple Pool
 
-A classic table game transfered to a computer game, enjoy this game with a friend or someone you know.
+Try this new adaptation from the classic board game Pool! Enjoy with a friend or more something that maybe you couldn't enjoy before!
 
 
 ## Author
