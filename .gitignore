@@ -45,3 +45,4 @@
 *.suo
 *.iobj
 *.ipdb
+*/bin
