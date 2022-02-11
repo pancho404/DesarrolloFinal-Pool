@@ -46,3 +46,4 @@
 *.iobj
 *.ipdb
 */bin
+*/vs
