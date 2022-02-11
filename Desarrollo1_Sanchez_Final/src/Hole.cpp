@@ -17,10 +17,10 @@ Vector2 Hole::GetPosition()
     return position;
 }
 
-void Hole::SetPosition(Vector2 position)
+void Hole::SetPosition(Vector2 _position)
 {
-    this->position.x = position.x;
-    this->position.y = position.y;
+    this->position.x = _position.x;
+    this->position.y = _position.y;
 }
 
 int Hole::GetRadius()

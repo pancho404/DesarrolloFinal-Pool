@@ -16,9 +16,9 @@ BorderPosition Border::GetBorderPosition()
 	return position;
 }
 
-void Border::SetBorderPosition(BorderPosition position) 
+void Border::SetBorderPosition(BorderPosition _position) 
 {
-	this->position = position;
+	this->position = _position;
 }
 
 Rectangle Border::GetBorderRec() 
@@ -26,9 +26,9 @@ Rectangle Border::GetBorderRec()
 	return borderRec;
 }
 
-void Border::SetBorderRec(Rectangle borderRec)
+void Border::SetBorderRec(Rectangle _borderRec)
 {
-	this->borderRec = borderRec;
+	this->borderRec = _borderRec;
 }
 
 void Border::Draw()

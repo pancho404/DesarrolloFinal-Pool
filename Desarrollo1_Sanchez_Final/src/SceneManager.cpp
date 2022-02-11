@@ -15,7 +15,7 @@ Scene SceneManager::getScene()
 	return scene;
 }
 
-void SceneManager::setScene(Scene scene)
+void SceneManager::setScene(Scene _scene)
 {
-	this->scene = scene;
+	this->scene = _scene;
 }

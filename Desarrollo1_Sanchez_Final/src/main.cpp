@@ -1,9 +1,10 @@
 #include "raylib.h"
 #include "App.h"
 
-void main()
+int main()
 {
 	App* app = new App();
 	app->start();
 	delete app;
+	return 0;
 }

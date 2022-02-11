@@ -24,10 +24,10 @@ Vector2 Ball::GetPosition()
 	return position;
 }
 
-void Ball::SetPosition(Vector2 position)
+void Ball::SetPosition(Vector2 _position)
 {
-	this->position.x = position.x;
-	this->position.y = position.y;
+	this->position.x = _position.x;
+	this->position.y = _position.y;
 }
 
 Vector2 Ball::GetVelocity()
@@ -35,10 +35,10 @@ Vector2 Ball::GetVelocity()
 	return velocity;
 }
 
-void Ball::SetVelocity(Vector2 velocity)
+void Ball::SetVelocity(Vector2 _velocity)
 {
-	this->velocity.x = velocity.x;
-	this->velocity.y = velocity.y;
+	this->velocity.x = _velocity.x;
+	this->velocity.y = _velocity.y;
 }
 
 Vector2 Ball::GetDirection()
@@ -46,10 +46,10 @@ Vector2 Ball::GetDirection()
 	return direction;
 }
 
-void Ball::SetDirection(Vector2 direction)
+void Ball::SetDirection(Vector2 _direction)
 {
-	this->direction.x = direction.x;
-	this->direction.y = direction.y;
+	this->direction.x = _direction.x;
+	this->direction.y = _direction.y;
 }
 
 Color Ball::GetColor()
@@ -62,9 +62,9 @@ bool Ball::GetOnGame()
 	return onGame;
 }
 
-void Ball::SetOnGame(bool onGame)
+void Ball::SetOnGame(bool _onGame)
 {
-	this->onGame = onGame;
+	this->onGame = _onGame;
 }
 
 bool Ball::GetIsMoving()
@@ -72,9 +72,9 @@ bool Ball::GetIsMoving()
 	return isMoving;
 }
 
-void Ball::SetIsMoving(bool isMoving)
+void Ball::SetIsMoving(bool _isMoving)
 {
-	this->isMoving = isMoving;
+	this->isMoving = _isMoving;
 }
 
 void Ball::Draw()
@@ -108,15 +108,15 @@ Vector2 Ball::GetAcceleration()
 	return acceleration;
 }
 
-void Ball::SetAcceleration(Vector2 acceleration)
+void Ball::SetAcceleration(Vector2 _acceleration)
 {
-	this->acceleration = acceleration;
+	this->acceleration = _acceleration;
 }
 
-void Ball::Move(Vector2 movement)
+void Ball::Move(Vector2 _movement)
 {
-	position.x += movement.x;
-	position.y += movement.y;
+	position.x += _movement.x;
+	position.y += _movement.y;
 }
 
 int Ball::GetID()
@@ -124,7 +124,7 @@ int Ball::GetID()
 	return id;
 }
 
-void Ball::SetTexture(Texture2D texture)
+void Ball::SetTexture(Texture2D _texture)
 {
-	this->texture = texture;
+	this->texture = _texture;
 }
