@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+
 #include "SceneManager.h"
 class Rules
 {

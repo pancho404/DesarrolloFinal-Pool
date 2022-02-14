@@ -1,4 +1,3 @@
-#include "raylib.h"
 #include "App.h"
 
 int main()

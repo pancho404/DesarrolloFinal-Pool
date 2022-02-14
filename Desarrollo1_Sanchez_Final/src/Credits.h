@@ -1,6 +1,8 @@
 #pragma once
-#include "SceneManager.h"
 #include "raylib.h"
+
+#include "SceneManager.h"
+
 class Credits
 {
 private:

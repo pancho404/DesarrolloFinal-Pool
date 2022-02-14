@@ -1,7 +1,8 @@
 #pragma once
 
-#include "raylib.h"
 #include <cmath>
+
+#include "raylib.h"
 
 enum class TypeOfBall 
 {

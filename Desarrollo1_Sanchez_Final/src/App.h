@@ -1,4 +1,5 @@
 #pragma once
+
 #include "SceneManager.h"
 #include "Menu.h"
 #include "Rules.h"

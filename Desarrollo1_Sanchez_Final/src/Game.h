@@ -1,16 +1,19 @@
 #pragma once
+
+#include <vector>
+
 #include "Ball.h"
 #include "Border.h"
 #include "Hole.h"
 #include "Screen.h"
 #include "SceneManager.h"
-#include <vector>
+
 using namespace std;
 
 class Game 
 {
 private:
-	const int strippedBallsTotal;
+	const int strippedBallsTotal=7;
 	Texture2D ballTexture;
 	SceneManager* sceneManager;
 	vector<Ball*> balls;
