@@ -11,14 +11,14 @@ enum class TypeOfBall
 	SMOOTH
 };
 
-static float tableFriction = 0.2f;
-static float gravity = 9.8f;
-static float airDensity = 1.225f;
-static float constantAirFriction = 0.000000667f;
-static int radius = 18;
-static float mass = 156;
-static float friction = tableFriction * (mass * gravity);
-static float airFriction = constantAirFriction * 0.5f * airDensity * (radius * radius) / 4;
+const float tableFriction = 0.2f;
+const float gravity = 9.8f;
+const float airDensity = 1.225f;
+const float constantAirFriction = 0.000000667f;
+const int radius = 18;
+const float mass = 156;
+const float friction = tableFriction * (mass * gravity);
+const float airFriction = constantAirFriction * 0.5f * airDensity * (radius * radius) / 4;
 
 class Ball 
 {

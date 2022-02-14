@@ -28,6 +28,7 @@ Game::~Game()
 
 void Game::Init()
 {
+	const int strippedBallsTotal = 7;
 	ballTexture = LoadTexture("res/strippedBall.png");
 	playerOneWins = LoadTexture("res/playerOne.png");
 	playerTwoWins = LoadTexture("res/playerTwo.png");
@@ -218,7 +219,22 @@ void Game::DeInit()
 	UnloadSound(ballSound);
 	UnloadTexture(playerOneWins);
 	UnloadTexture(playerTwoWins);
-	UnloadTexture(ballTexture);
+	UnloadTexture(ballTexture);	
+	for (auto&& balls : balls)
+	{
+		delete balls;
+	}
+	balls.clear();
+	for (auto&& holes : holes)
+	{
+		delete holes;
+	}
+	holes.clear();
+	for (auto&& borders : borders)
+	{
+		delete borders;
+	}
+	borders.clear();
 }
 
 void Game::BallBallCollision(vector<Ball*> _balls) {
@@ -355,22 +371,22 @@ void Game::HoleBallCollision(vector<Hole*> _holes, Ball* _ball)
 
 				if (playerOneTurn)
 				{
-					if (counterStriped == 7)
+					if (counterStriped == strippedBallsTotal)
 					{
 						playerOneWon = true;
 					}
-					else if (counterStriped < 7)
+					else if (counterStriped < strippedBallsTotal)
 					{
 						playerTwoWon = true;
 					}
 				}
 				else
 				{
-					if (counterSmooth == 7)
+					if (counterSmooth == strippedBallsTotal)
 					{
 						playerTwoWon = true;
 					}
-					else if (counterSmooth < 7)
+					else if (counterSmooth < strippedBallsTotal)
 					{
 						playerOneWon = true;
 					}

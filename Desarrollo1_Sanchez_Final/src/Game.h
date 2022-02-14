@@ -10,6 +10,7 @@ using namespace std;
 class Game 
 {
 private:
+	const int strippedBallsTotal;
 	Texture2D ballTexture;
 	SceneManager* sceneManager;
 	vector<Ball*> balls;
