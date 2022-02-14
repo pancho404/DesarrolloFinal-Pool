@@ -28,7 +28,7 @@ Game::~Game()
 
 void Game::Init()
 {
-	const int strippedBallsTotal = 7;
+	
 	ballTexture = LoadTexture("res/strippedBall.png");
 	playerOneWins = LoadTexture("res/playerOne.png");
 	playerTwoWins = LoadTexture("res/playerTwo.png");
@@ -116,14 +116,15 @@ void Game::Input()
 		balls[0]->Hit(mousePosition);
 		whiteBallHit = true;
 	}
+	
 }
 
 void Game::Update()
 {
-
+	
 	if (!gameOver)
 	{
-
+		
 		int previousBallsOnGame = CheckBalls(balls);
 		int ballsStill = 0;
 		for (unsigned int i = 0; i < balls.size(); i++) {
@@ -220,19 +221,19 @@ void Game::DeInit()
 	UnloadTexture(playerOneWins);
 	UnloadTexture(playerTwoWins);
 	UnloadTexture(ballTexture);
-	for (auto&& balls : balls)
+	for (auto&& ball : balls)
 	{
-		delete balls;
+		delete ball;
 	}
 	balls.clear();
-	for (auto&& holes : holes)
+	for (auto&& hole : holes)
 	{
-		delete holes;
+		delete hole;
 	}
 	holes.clear();
-	for (auto&& borders : borders)
+	for (auto&& border : borders)
 	{
-		delete borders;
+		delete border;
 	}
 	borders.clear();
 }
