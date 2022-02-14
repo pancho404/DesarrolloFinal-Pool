@@ -1,3 +1,4 @@
+#include "raylib.h"
 #include "Hole.h"
 
 Hole::Hole(Vector2 position, int radius)
