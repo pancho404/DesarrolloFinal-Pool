@@ -12,7 +12,7 @@ App::App()
 	music = LoadMusicStream("res/music.mp3");
 	SetMusicVolume(music, 0.2f);
 	music.looping = true;
-	
+
 }
 
 App::~App()
@@ -32,8 +32,8 @@ void App::start()
 {
 	game->Init();
 	PlayMusicStream(music);
-	
-	while (!WindowShouldClose() && sceneManager->getScene()!=Scene::EXIT)
+
+	while (!WindowShouldClose() && sceneManager->getScene() != Scene::EXIT)
 	{
 		UpdateMusicStream(music);
 		switch (sceneManager->getScene())
