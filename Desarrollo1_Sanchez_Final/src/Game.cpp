@@ -226,6 +226,14 @@ void Game::Reset()
 	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 5 / 10 }, BLUE, TypeOfBall::SMOOTH, 13));
 	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 6 / 10 }, BLUE, TypeOfBall::SMOOTH, 14));
 	balls.push_back(new Ball({ screenWidth * 8.6f / 10,screenHeight * 7 / 10 }, RED, TypeOfBall::STRIPED, 15));
+
+	for (unsigned int i = 0; i < balls.size(); i++)
+	{
+		if (balls[i]->GetType() == TypeOfBall::STRIPED)
+		{
+			balls[i]->SetTexture(ballTexture);
+		}
+	}
 }
 
 int Game::CheckBalls(vector<Ball*> _balls)
