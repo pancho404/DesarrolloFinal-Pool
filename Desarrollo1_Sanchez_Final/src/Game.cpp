@@ -122,6 +122,11 @@ void Game::Input()
 void Game::Update()
 {
 	
+	if (IsKeyPressed(KEY_SPACE))
+	{
+		Reset();
+		sceneManager->setScene(Scene::MENU);
+	}
 	if (!gameOver)
 	{
 		
@@ -181,6 +186,7 @@ void Game::Draw()
 		{
 			DrawText("J2", screenWidth / 2 - 60, screenHeight / 2 - 60, 120, BLACK);
 		}
+		DrawText("SPACEBAR to return to Menu", screenWidth / 2 - 240, screenHeight / 2 + 50, 30, BLACK);
 		for (unsigned int i = 0; i < holes.size(); i++)
 		{
 			holes[i]->Draw();
