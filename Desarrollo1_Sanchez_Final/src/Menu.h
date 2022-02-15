@@ -11,10 +11,14 @@ private:
 	Rectangle quitRec;	
 	SceneManager* sceneManager;
 	Texture2D texture;
+	Sound beepSound;
+	Sound confirmSound;
+	bool isMouseOverButton;
 public:
 	Menu(SceneManager* sceneManager);
 	~Menu();
 	void Update();
 	void Draw();
+	void hoverMouse();
 };
 
