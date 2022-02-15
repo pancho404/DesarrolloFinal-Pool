@@ -1,5 +1,6 @@
-#include "App.h"
 #include <iostream>
+
+#include "App.h"
 App::App()
 {
 	InitWindow(1280, 720, "Pool by Francisco Sanchez");

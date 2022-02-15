@@ -49,9 +49,9 @@ public:
 	bool GetIsMoving();
 	void SetIsMoving(bool isMoving);
 	void Draw();
+	void Hit(Vector2 mousePosition);
 	TypeOfBall GetType();
 	Vector2 GetAcceleration();
-	void Hit(Vector2 mousePosition);
 	void SetAcceleration(Vector2 acceleration);
 	void Move(Vector2 movement);
 	void SetTexture(Texture2D texture);

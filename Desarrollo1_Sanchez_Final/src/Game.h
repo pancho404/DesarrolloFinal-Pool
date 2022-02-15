@@ -30,7 +30,12 @@ private:
 	bool playerTwoWon;
 	bool allBallsStill;
 	bool whiteBallHit;
-	int ballsOnGame;
+	int ballsOnGame;	
+	void BallBallCollision(vector<Ball*> balls);
+	void BorderBallCollision(vector<Border*> borders, Ball* ball);
+	void HoleBallCollision(vector<Hole*> holes, Ball* ball);
+	void Reset();
+	int CheckBalls(vector<Ball*> balls);
 public:
 	Game(SceneManager* sceneManager);
 	~Game();
@@ -39,10 +44,5 @@ public:
 	void Update();
 	void Draw();
 	void DeInit();
-	void BallBallCollision(vector<Ball*> balls);
-	void BorderBallCollision(vector<Border*> borders, Ball* ball);
-	void HoleBallCollision(vector<Hole*> holes, Ball* ball);
-	void Reset();
-	int CheckBalls(vector<Ball*> balls);
 };
 

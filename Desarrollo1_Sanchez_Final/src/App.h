@@ -14,9 +14,10 @@ private:
 	Credits* credits;
 	Game* game;
 	Music music;
+	
 public:
 	App();
 	~App();
-	void start();
+	void start();	
 };
 
