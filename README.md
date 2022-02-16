@@ -2,6 +2,7 @@
 
 Try this new adaptation from the classic board game Pool! Enjoy with a friend or more something that maybe you couldn't enjoy before!
 
+(https://raw.githubusercontent.com/pancho404/DesarrolloFinal-Pool/main/Desarrollo1_Sanchez_Final/res/readme/cover.png)
 
 ## Author
 
